@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1433
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "crab_rtsp_to_rtmp", "crab_rtsp_to_rtmp\crab_rtsp_to_rtmp.vcxproj", "{9D9FFB7F-8618-4BE0-A268-B7EE756E95EF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{66F1D9E3-D68C-4AB8-B9E3-50FB201F93E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D9FFB7F-8618-4BE0-A268-B7EE756E95EF}.Debug|x64.ActiveCfg = Debug|x64
+		{9D9FFB7F-8618-4BE0-A268-B7EE756E95EF}.Debug|x64.Build.0 = Debug|x64
+		{9D9FFB7F-8618-4BE0-A268-B7EE756E95EF}.Debug|x86.ActiveCfg = Debug|Win32
+		{9D9FFB7F-8618-4BE0-A268-B7EE756E95EF}.Debug|x86.Build.0 = Debug|Win32
+		{9D9FFB7F-8618-4BE0-A268-B7EE756E95EF}.Release|x64.ActiveCfg = Release|x64
+		{9D9FFB7F-8618-4BE0-A268-B7EE756E95EF}.Release|x64.Build.0 = Release|x64
+		{9D9FFB7F-8618-4BE0-A268-B7EE756E95EF}.Release|x86.ActiveCfg = Release|Win32
+		{9D9FFB7F-8618-4BE0-A268-B7EE756E95EF}.Release|x86.Build.0 = Release|Win32
+		{66F1D9E3-D68C-4AB8-B9E3-50FB201F93E2}.Debug|x64.ActiveCfg = Debug|x64
+		{66F1D9E3-D68C-4AB8-B9E3-50FB201F93E2}.Debug|x64.Build.0 = Debug|x64
+		{66F1D9E3-D68C-4AB8-B9E3-50FB201F93E2}.Debug|x86.ActiveCfg = Debug|Win32
+		{66F1D9E3-D68C-4AB8-B9E3-50FB201F93E2}.Debug|x86.Build.0 = Debug|Win32
+		{66F1D9E3-D68C-4AB8-B9E3-50FB201F93E2}.Release|x64.ActiveCfg = Release|x64
+		{66F1D9E3-D68C-4AB8-B9E3-50FB201F93E2}.Release|x64.Build.0 = Release|x64
+		{66F1D9E3-D68C-4AB8-B9E3-50FB201F93E2}.Release|x86.ActiveCfg = Release|Win32
+		{66F1D9E3-D68C-4AB8-B9E3-50FB201F93E2}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD241881-3348-4C6F-BEC0-A86407A83F47}
+	EndGlobalSection
+EndGlobal
