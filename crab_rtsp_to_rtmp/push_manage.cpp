@@ -1,5 +1,5 @@
 #include "push_manage.hpp"
-//#include "debug.hpp"
+#include "app.hpp"
 
 
 
@@ -32,7 +32,6 @@ void RtspManage::rtsp_connent()
 	rtsp_client_->audio_cb_ = std::bind(&RtmpPush::on_audio_data, rtmp_push_.get(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 	rtsp_client_->on_video_codec_info_ = std::bind(&RtmpPush::onVideoInfo, rtmp_push_.get(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5, std::placeholders::_6);
 	rtsp_client_->on_audio_codec_info_ = std::bind(&RtmpPush::onAudioInfo, rtmp_push_.get(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
-	//rtsp_client_->onDisconnect_ = std::bind(&RtspManage::onDisconnect, this);
 	rtsp_client_->start();
 }
 
@@ -58,7 +57,7 @@ void RtspManage::rtsp_reconnect()
 	});
 }
 
-void  RtspManage::rtsp_stop()
+void RtspManage::rtsp_stop()
 {
 	if (rtsp_client_)
 	{
@@ -71,28 +70,26 @@ void  RtspManage::rtsp_stop()
 
 void RtspManage::onConnect()
 {
-	reconnect_time = 10.0;
+	reconnect_time = 15.0;
 	rtsp_connent();
 }
 
 
-void rtmp_reconnect(int id)
+void RtspManage::rtmp_reconnect(int id)
 {
-	/*auto it = App::instance()->RtspManageMap_.find(id);
-	if (it != App::instance()->RtspManageMap_.end())
+	auto it = App::instance()->push_map_.find(id);
+	if (it != App::instance()->push_map_.end())
 	{
 		it->second->rtmp_push_->reconnect();
-	}*/
+	}
 }
 
 void RtspManage::onDisconnect()
 {
 	rtsp_stop();
-	//OutputDebugPrintf("reconnect_time = %.2f\n", reconnect_time);
-	//App::instance()->loopThreadPool_->GetNextLoop()->RunAfter(Duration(reconnect_time), std::bind(rtmp_reconnect, id_));
 	int delay = reconnect_time * 1000;
-	eventLoop_->setTimeout(delay, std::bind(rtmp_reconnect, id_));
-	if (reconnect_time < 60.0) reconnect_time += 3.0;
+	eventLoop_->setTimeout(delay, std::bind(&RtspManage::rtmp_reconnect,this, id_));
+	
 }
 
 

@@ -42,7 +42,7 @@
     <ClCompile Include="rtmp_push.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="app.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,6 +81,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="filter_aresample.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="app.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

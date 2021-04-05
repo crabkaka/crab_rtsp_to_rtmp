@@ -39,13 +39,13 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -140,11 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="app.cpp" />
     <ClCompile Include="audio_transcode.cpp" />
     <ClCompile Include="eventLoop.cpp" />
     <ClCompile Include="filter.cpp" />
     <ClCompile Include="filter_aresample.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="push_manage.cpp" />
     <ClCompile Include="rtmp_push.cpp" />
     <ClCompile Include="rtsp_pull.cpp" />
@@ -152,6 +152,7 @@
     <ClCompile Include="timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="app.hpp" />
     <ClInclude Include="audio_transcode.hpp" />
     <ClInclude Include="error_define.h" />
     <ClInclude Include="eventLoop.h" />

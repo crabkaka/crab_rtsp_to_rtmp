@@ -24,6 +24,8 @@ public:
 	void aliveCheck();
 
 	void rtsp_reconnect();
+
+	void rtmp_reconnect(int id);
 private:
 
 	ourRTSPClient* rtsp_client_;
