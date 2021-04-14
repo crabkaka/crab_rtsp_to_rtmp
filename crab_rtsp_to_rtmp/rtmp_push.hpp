@@ -102,6 +102,7 @@ private:
 	bool is_push_sps_;
 	bool is_push_pps_;
 	bool is_need_transcode_;
+	bool is_transcode_init_;
 	mutex queue_mutex_;
 	mutex call_dis_mutex_;
 

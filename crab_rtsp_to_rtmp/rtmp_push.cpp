@@ -13,6 +13,7 @@ RtmpPush::RtmpPush(string url)
 	is_init_video_(false),
 	is_push_i_(false),
 	is_need_transcode_(false),
+	is_transcode_init_(false),
 	disconnect_ct_(0),
 	sound_format_(10),
 	sound_rate_(3),	// 3 = 44 kHz
@@ -54,6 +55,7 @@ rtmp_destroy:
 void RtmpPush::disconnect()
 {
 	is_connected_ = false;
+	is_transcode_init_ = false;
 	while (!queue_.empty())
 	{
 		queue_.pop();
@@ -125,7 +127,11 @@ void RtmpPush::run()
 			condition_.wait(lock,
 				[this] { return stop_ || !queue_.empty() || is_reconnect_; });
 
-			if (stop_) return;
+			if (stop_){
+				disconnect();
+				return;
+			}
+
 			if (is_reconnect_)
 			{
 				connect();
@@ -326,8 +332,8 @@ void RtmpPush::on_audio_data(uint8_t* pData, int nLen, uint32_t ts)
 
 	if (is_need_transcode_)
 	{
-		
-		audio_transcode_->pushPacket(pData, nLen,ts);
+		if(is_transcode_init_)
+			audio_transcode_->pushPacket(pData, nLen,ts);
 	}
 	else
 	{
@@ -382,17 +388,25 @@ void RtmpPush::onAudioInfo(int sample, int channel, string codec)
 			decoder_info.codec = AV_CODEC_ID_ADPCM_G726;
 			decoder_info.fmt = AV_SAMPLE_FMT_S16;
 		}
+		else
+		{
+			return;
+		}
 		AudioInfo encoder_info;
 		encoder_info.channel = 1;
 		encoder_info.sample_rate = 44100;
 		encoder_info.codec = AV_CODEC_ID_AAC;
 		encoder_info.fmt = AV_SAMPLE_FMT_FLTP;
 		
-		audio_transcode_->init(decoder_info, encoder_info);
+		int ret = audio_transcode_->init(decoder_info, encoder_info);
+
+		if (ret) return;
 
 		audio_transcode_->on_transcode_data_ = std::bind(&RtmpPush::on_aac_data,this,std::placeholders::_1,std::placeholders::_2);
 
 		audio_transcode_->start();
+
+		is_transcode_init_ = true;
 	}
 
 

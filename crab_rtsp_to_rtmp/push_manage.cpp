@@ -78,6 +78,11 @@ void RtspManage::onConnect()
 void RtspManage::rtmp_reconnect(int id)
 {
 	auto it = App::instance()->push_map_.find(id);
+
+	for (auto tt: App::instance()->push_map_)
+	{
+		cout << "tt:"<<tt.first << endl;
+	}
 	if (it != App::instance()->push_map_.end())
 	{
 		it->second->rtmp_push_->reconnect();

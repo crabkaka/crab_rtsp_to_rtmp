@@ -3,8 +3,8 @@
 #include <unordered_map>
 #include <memory>
 #include <mutex>
-
-
+#include <iostream>
+#include <thread>
 
 using namespace std;
 
@@ -26,11 +26,7 @@ namespace crab
 		App & operator=(const App &) = delete;
 		App(const App &) = delete;
 
-		static App* instance()
-		{
-			static App * single = new App();
-			return single;
-		}
+		static App* instance();
 
 		void start();
 		void add(int id, string &&rtmp_url, string &&rtsp_url);
@@ -39,13 +35,17 @@ namespace crab
 
 		void stop_push(int id);
 
+
+
 	private:
 		friend class RtspManage;
 		App();
 		~App();
+		void work();
 		unordered_map<int, shared_ptr<RtspManage>> push_map_;
 		mutex map_mutex_;
 		EventLoop* el;
+		shared_ptr<thread> thread_;
 
 		
 	};

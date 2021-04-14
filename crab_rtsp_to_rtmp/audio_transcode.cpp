@@ -11,6 +11,7 @@ namespace crab
 	}
 	audio_transcode::~audio_transcode()
 	{
+		stop();
 		avcodec_close(encoder_ctx_);
 		avcodec_free_context(&encoder_ctx_);
 		avcodec_close(decoder_ctx_);
@@ -186,6 +187,11 @@ namespace crab
 			decoder_ctx_->channels = decode_info.channel;
 			decoder_ctx_->channel_layout = av_get_default_channel_layout(decode_info.channel);
 			decoder_ctx_->sample_fmt = decode_info.fmt;
+			if (decode_info.codec == AV_CODEC_ID_ADPCM_G726)
+			{
+				decoder_ctx_->bits_per_coded_sample = 2;
+			}
+			
 
 			if (avcodec_open2(decoder_ctx_, decoder_, NULL) != 0) {
 				err = AE_FFMPEG_OPEN_CODEC_FAILED;

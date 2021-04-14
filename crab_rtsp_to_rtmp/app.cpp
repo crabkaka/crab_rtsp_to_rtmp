@@ -4,6 +4,12 @@
 
 namespace crab
 {
+
+	App* App::instance()
+	{
+		static App * single = new App();
+		return single;
+	}
 	App::App()
 	{
 		el = new EventLoop();
@@ -15,6 +21,14 @@ namespace crab
 	}
 
 	void App::start()
+	{
+		el->setInterval(10000,std::bind(&App::alive_check,this));
+
+		thread_.reset(new thread(std::bind(&App::work,this)));
+		
+	}
+
+	void App::work()
 	{
 		el->start();
 	}
