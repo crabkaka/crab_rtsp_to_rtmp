@@ -70,6 +70,7 @@ void RtmpPush::disconnect()
 
 void RtmpPush::callConnect()
 {
+	lock_guard<mutex> lock(alive_mutex_);
 	alive_ct_ = 1;
 	onConnect_();
 	is_call_disconnect_ = false;
@@ -170,6 +171,7 @@ void RtmpPush::run()
 			}
 			else
 			{
+				lock_guard<mutex> lock(alive_mutex_);
 				++alive_ct_;
 			}
 
@@ -417,4 +419,19 @@ void RtmpPush::onAudioInfo(int sample, int channel, string codec)
 void RtmpPush::on_aac_data(uint8_t* data, int len)
 {
 	push_audio_frame(data, len, _startTimePoint.elapsed());
+}
+
+void RtmpPush::alive_check()
+{
+	if (!is_connected_) return;
+
+	lock_guard<mutex> lock(alive_mutex_);
+	if (alive_ct_ > 0)
+	{
+		alive_ct_ = 0;
+	}
+	else
+	{
+		callDisconnect();
+	}
 }

@@ -15,7 +15,12 @@ using namespace std;
 #endif
 
 class RtspManage;
-class EventLoop;
+
+namespace evpp 
+{
+	class EventLoop;
+}
+
 
 namespace crab 
 {
@@ -44,7 +49,7 @@ namespace crab
 		void work();
 		unordered_map<int, shared_ptr<RtspManage>> push_map_;
 		mutex map_mutex_;
-		EventLoop* el;
+		evpp::EventLoop* el;
 		shared_ptr<thread> thread_;
 
 		

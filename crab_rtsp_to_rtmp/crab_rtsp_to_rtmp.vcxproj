@@ -142,7 +142,6 @@
   <ItemGroup>
     <ClCompile Include="app.cpp" />
     <ClCompile Include="audio_transcode.cpp" />
-    <ClCompile Include="eventLoop.cpp" />
     <ClCompile Include="filter.cpp" />
     <ClCompile Include="filter_aresample.cpp" />
     <ClCompile Include="push_manage.cpp" />
@@ -155,7 +154,6 @@
     <ClInclude Include="app.hpp" />
     <ClInclude Include="audio_transcode.hpp" />
     <ClInclude Include="error_define.h" />
-    <ClInclude Include="eventLoop.h" />
     <ClInclude Include="filter.hpp" />
     <ClInclude Include="filter_aresample.hpp" />
     <ClInclude Include="headers_ffmpeg.h" />
@@ -165,6 +163,7 @@
     <ClInclude Include="rtsp_pull.hpp" />
     <ClInclude Include="srs_librtmp.h" />
     <ClInclude Include="timestamp.hpp" />
+    <ClInclude Include="winmain-inl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

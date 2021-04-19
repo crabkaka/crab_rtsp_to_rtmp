@@ -1,6 +1,8 @@
 #include "app.hpp"
 #include "push_manage.hpp"
-#include "eventLoop.h"
+#include <evpp/event_loop.h>
+#include "winmain-inl.h"
+//using namespace evpp;
 
 namespace crab
 {
@@ -12,7 +14,8 @@ namespace crab
 	}
 	App::App()
 	{
-		el = new EventLoop();
+		el = new evpp::EventLoop();
+		//cout << "app::el:"<<el << endl;
 	}
 
 	App::~App()
@@ -22,7 +25,7 @@ namespace crab
 
 	void App::start()
 	{
-		el->setInterval(10000,std::bind(&App::alive_check,this));
+		el->RunEvery(evpp::Duration(5.0),std::bind(&App::alive_check,this));
 
 		thread_.reset(new thread(std::bind(&App::work,this)));
 		
@@ -30,7 +33,7 @@ namespace crab
 
 	void App::work()
 	{
-		el->start();
+		el->Run();
 	}
 
 	void App::add(int id, string &&rtmp_url, string &&rtsp_url)

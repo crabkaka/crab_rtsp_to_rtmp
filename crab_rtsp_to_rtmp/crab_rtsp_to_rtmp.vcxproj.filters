@@ -36,9 +36,6 @@
     <ClCompile Include="timestamp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="eventLoop.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="rtmp_push.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -65,9 +62,6 @@
     <ClInclude Include="timestamp.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="eventLoop.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="error_define.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -84,6 +78,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="app.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="winmain-inl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

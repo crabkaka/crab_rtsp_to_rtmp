@@ -2,14 +2,14 @@
 
 #include "rtsp_pull.hpp"
 #include "rtmp_push.hpp"
-#include "eventLoop.h"
+#include <evpp/event_loop.h>
 
 class RtspManage
 {
 public:
 
 	using onRender = std::function<void(uint8_t *data, int len)>;
-	RtspManage(string rtsp_url, string rtmp_url, int id, EventLoop * el);
+	RtspManage(string rtsp_url, string rtmp_url, int id, evpp::EventLoop * el);
 	~RtspManage();
 
 	void start();
@@ -42,7 +42,7 @@ private:
 	uint32_t reconnect_ct_ = 0;
 	int id_;
 
-	EventLoop * eventLoop_;
+	evpp::EventLoop * eventLoop_;
 
 };
 

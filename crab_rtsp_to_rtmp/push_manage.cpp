@@ -3,7 +3,7 @@
 
 
 
-RtspManage::RtspManage(string rtsp_url, string rtmp_url, int id, EventLoop* el)
+RtspManage::RtspManage(string rtsp_url, string rtmp_url, int id, evpp::EventLoop* el)
 	:rtmp_push_(new RtmpPush(rtmp_url)),
 	rtsp_url_(rtsp_url),
 	rtmp_url_(rtmp_url),
@@ -16,6 +16,8 @@ RtspManage::RtspManage(string rtsp_url, string rtmp_url, int id, EventLoop* el)
 	env_ = BasicUsageEnvironment::createNew(*scheduler_);
 	rtmp_push_->onConnect_ = std::bind(&RtspManage::onConnect, this);
 	rtmp_push_->onDisconnect_ = std::bind(&RtspManage::onDisconnect, this);
+
+	
 }
 
 RtspManage::~RtspManage()
@@ -37,22 +39,14 @@ void RtspManage::rtsp_connent()
 
 void RtspManage::aliveCheck()
 {
-	if (!rtmp_push_->is_connected_) return;
-	if (rtmp_push_->alive_ct_ > 0)
-	{
-		rtmp_push_->alive_ct_ = 0;
-	}
-	else
-	{
-		rtmp_push_->callDisconnect();
-	}
+	rtmp_push_->alive_check();
 }
 
 void RtspManage::rtsp_reconnect()
 {
 	aliveCount_ = 1;
 	rtsp_stop();
-	eventLoop_->setTimeout(5000, [&]() {
+	eventLoop_->RunAfter(evpp::Duration(5.0), [&]() {
 		rtsp_connent();
 	});
 }
@@ -70,7 +64,6 @@ void RtspManage::rtsp_stop()
 
 void RtspManage::onConnect()
 {
-	reconnect_time = 15.0;
 	rtsp_connent();
 }
 
@@ -79,10 +72,6 @@ void RtspManage::rtmp_reconnect(int id)
 {
 	auto it = App::instance()->push_map_.find(id);
 
-	for (auto tt: App::instance()->push_map_)
-	{
-		cout << "tt:"<<tt.first << endl;
-	}
 	if (it != App::instance()->push_map_.end())
 	{
 		it->second->rtmp_push_->reconnect();
@@ -93,7 +82,8 @@ void RtspManage::onDisconnect()
 {
 	rtsp_stop();
 	int delay = reconnect_time * 1000;
-	eventLoop_->setTimeout(delay, std::bind(&RtspManage::rtmp_reconnect,this, id_));
+	
+	eventLoop_->RunAfter(evpp::Duration(10.0), std::bind(&RtspManage::rtmp_reconnect,this, id_));
 	
 }
 

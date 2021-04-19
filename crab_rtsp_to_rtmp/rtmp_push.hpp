@@ -64,6 +64,8 @@ public:
 
 	bool is_connected_;
 
+	void alive_check();
+
 private:
 
 
@@ -105,6 +107,7 @@ private:
 	bool is_transcode_init_;
 	mutex queue_mutex_;
 	mutex call_dis_mutex_;
+	mutex alive_mutex_;
 
 	condition_variable condition_;
 	shared_ptr<thread> thread_;
